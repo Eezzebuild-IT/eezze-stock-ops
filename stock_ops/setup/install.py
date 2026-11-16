@@ -89,8 +89,7 @@ CUSTOM_FIELDS = {
 	"Stock Entry": [dict(LOCALID_FIELD), dict(GEO_FIELD), dict(PURPOSE_FIELD)],
 	"Stock Reconciliation": [dict(LOCALID_FIELD)],
 	"Purchase Receipt": [dict(LOCALID_FIELD), dict(GEO_FIELD), dict(PURPOSE_FIELD)],
-	# Quotation: hanya perlu idempotensi + catatan (tanpa gudang/geo).
-	"Quotation": [dict(LOCALID_FIELD), dict(QTN_REMARKS_FIELD)],
+	# Eezzebuild: no Quotation fields (quoting belongs to the sales team, decision 0050 in eezze-erpnext).
 	# Pengaitan gudang per employee (dipakai Stock Ops untuk membatasi stok/pergerakan)
 	"Employee": [
 		{

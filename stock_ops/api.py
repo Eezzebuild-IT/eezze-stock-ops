@@ -5,7 +5,8 @@ import frappe
 from frappe import _
 from frappe.utils import cint
 
-ALLOWED_DOCTYPES = ("Material Request", "Stock Entry", "Purchase Receipt", "Quotation", "Stock Reconciliation")
+# Eezzebuild: no Quotation from Stock Ops (quoting belongs to the sales team, decision 0050 in eezze-erpnext)
+ALLOWED_DOCTYPES = ("Material Request", "Stock Entry", "Purchase Receipt", "Stock Reconciliation")
 
 
 def get_user_warehouses(user=None):
@@ -858,7 +859,7 @@ def _app_settings():
 		s = frappe.get_cached_doc("Stock Ops Settings")
 	except Exception:
 		s = None
-	default_lang = (getattr(s, "default_language", None) or "id") if s else "id"
+	default_lang = (getattr(s, "default_language", None) or "en") if s else "en"  # Eezzebuild: English first
 	apk_url = (getattr(s, "flutter_apk_url", None) or "") if s else ""
 	return {
 		"menu": _menu_settings(s),
@@ -1072,7 +1073,7 @@ def get_bootstrap():
 	)
 
 	# Menu Quotation (permintaan barang penjualan) hanya untuk user yang boleh buat Quotation.
-	can_quotation = bool(frappe.has_permission("Quotation", "create")) if frappe.db.exists("DocType", "Quotation") else False
+	can_quotation = False  # Eezzebuild: quoting stays with the sales team (decision 0050 in eezze-erpnext)
 
 	return {
 		"user": {"name": user, "full_name": frappe.utils.get_fullname(user)},
@@ -1282,6 +1283,7 @@ def create_quotation(customer, items, company=None, external_localid=None, remar
 	`items`    = list [{item_code, qty, uom}]. Harga (rate) sengaja 0 — diisi tim sales nanti di Desk,
 	             lalu Quotation ditarik menjadi Sales Order → Sales Invoice.
 	"""
+	frappe.throw("Quotations are made by the sales team, not from Stock Ops.")  # Eezzebuild, decision 0050
 	if isinstance(items, str):
 		items = json.loads(items)
 	customer = (customer or "").strip()

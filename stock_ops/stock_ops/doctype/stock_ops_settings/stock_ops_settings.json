@@ -62,7 +62,7 @@
    "fieldtype": "Select",
    "label": "Bahasa Default",
    "options": "id\nen",
-   "default": "id",
+   "default": "en",
    "description": "Bahasa awal aplikasi (id = Indonesia, en = English). Pengguna tetap bisa menggantinya di app."
   },
   {
