@@ -18,6 +18,6 @@ Changed on branch `eezze`, so it can live beside eezze-erpnext's theme on the sa
 Checked on the staging copy (eezze-erpnext `docs/how-to/erpnext-staging.md`): installs beside eezze_erp_theme with
 no workflow on Material Request and every Eezze role's Custom DocPerm row unchanged.
 
-Still to adapt: the screen bundle's own fallback language (`frontend/src/lib/i18n.js`, rebuilt into `public/`), the
+Still to adapt: its own branding (brown, its own logo) to Eezzebuild's; the screen bundle's own fallback language (`frontend/src/lib/i18n.js`, rebuilt into `public/`), the
 transfer screens to the hub's `/api/erp/ibt` (countersign, follow-up, signatures, photos), and
 its roles mapped onto the Eezze job profiles.
