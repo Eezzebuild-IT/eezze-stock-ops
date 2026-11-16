@@ -108,8 +108,9 @@ CUSTOM_FIELDS = {
 def after_install():
 	setup_custom_fields()
 	setup_roles_and_permissions()
-	setup_approval_workflow()
-	_setup_rtp()
+	# Eezzebuild: no approval workflow on Material Request (it would stop the branch transfers, which are Material
+	# Requests the hub submits) and no request-to-pay flow (our approvals and payments live in eezze-erpnext; payments
+	# are authorised in the bank). Both stay in the code, switched off here.
 	from stock_ops.push import ensure_vapid_keys
 
 	ensure_vapid_keys()
@@ -124,8 +125,6 @@ def after_migrate():
 	"""
 	setup_custom_fields()
 	setup_roles_and_permissions()
-	setup_approval_workflow()
-	_setup_rtp()
 
 
 def _setup_rtp():
@@ -163,7 +162,8 @@ ROLE_MANAGER = "Stock Ops Manager"
 
 # Doctype transaksi yang dioperasikan aplikasi (submittable).
 # Quotation = permintaan barang penjualan (ops), nanti ditarik sales → Sales Invoice.
-TXN_DOCTYPES = ("Material Request", "Stock Entry", "Stock Reconciliation", "Purchase Receipt", "Quotation")
+# Eezzebuild: no Quotation (quoting belongs to the sales team, decision 0050 in eezze-erpnext)
+TXN_DOCTYPES = ("Material Request", "Stock Entry", "Stock Reconciliation", "Purchase Receipt")
 
 # Master data yang cukup dibaca (read-only) oleh aplikasi.
 READ_DOCTYPES = (
